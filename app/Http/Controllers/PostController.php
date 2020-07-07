@@ -5,6 +5,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Http\Requests;
+use App\Post;
+use Session; //引用會話(提示新建貼文成功)
+
 class PostController extends Controller
 {
     /**
@@ -35,21 +39,23 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //validate in the data
+        //validate in the data(驗證要存入的資料，避免惡意攻擊)
         $this->validate($request, array(
             'title' => 'required|max:255',
             'body'  => 'required'
         ));
 
-        //store in the database
-        $post = new Post;
+        //store in the database(存入資料庫)
+        $post = new Post; //要引用App\Post;
 
         $post->title = $request ->title;
         $post->body = $request->body;
 
         $post->save();
+        Session::flash('success', '貼文新增成功！');
 
-        return resirect()
+        //redirect to another page(導向其他頁面)
+        return redirect()->route('posts.show', $post->id);
 
     }
 
@@ -61,7 +67,7 @@ class PostController extends Controller
      */
     public function show($id)
     {
-        //
+        return view('posts.show');
     }
 
     /**

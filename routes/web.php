@@ -18,7 +18,13 @@ Route::get('laravel-version', function(){
     return "Your Laravel version is ".$laravel::VERSION;
 });
 
-Route::get('/about', 'PagesController@getAbout');
-Route::get('/contact', 'PagesController@getContact');
-Route::get('/', 'PagesController@getHome');
-Route::resource('posts','PostController');
+
+
+Route::group(['middleware' => 'web'], function () {
+
+    Route::get('/about', 'PagesController@getAbout');
+    Route::get('/contact', 'PagesController@getContact');
+    Route::get('/', 'PagesController@getHome');
+    Route::resource('posts','PostController');
+
+});
