@@ -9,7 +9,7 @@
 
     <div class="container">
         @yield('content')
-        
+        <hr>
     </div> <!-- end of container -->
 
     @include('partials/_footer')

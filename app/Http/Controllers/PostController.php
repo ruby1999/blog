@@ -18,7 +18,11 @@ class PostController extends Controller
      */
     public function index()
     {
-        //
+        //create a variable and store all the blog posts in it from the database
+        $posts = Post::all();
+
+        //return a view and pass in the above variable
+        return view('posts.index')->withPosts($posts);
     }
 
     /**
@@ -37,6 +41,7 @@ class PostController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+
     public function store(Request $request)
     {
         //validate in the data(驗證要存入的資料，避免惡意攻擊)
@@ -67,7 +72,8 @@ class PostController extends Controller
      */
     public function show($id)
     {
-        return view('posts.show');
+        $post = Post::find($id);
+        return view('posts.show')->with('post', $post);
     }
 
     /**
@@ -78,7 +84,10 @@ class PostController extends Controller
      */
     public function edit($id)
     {
-        //
+        //find the post in the database and save as a var
+        $post = Post::find($id);
+        //retueb the view and pass in the var we previously created
+        return view('posts.edit')->withPost($post);
     }
 
     /**

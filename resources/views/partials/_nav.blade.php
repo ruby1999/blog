@@ -1,29 +1,40 @@
 <div class="header">
-    <ul class="nav">
-        <li class="nav-item">
-            <a class="nav-link active" href="/">Home</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="/about">About</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="/contact">Contact</a>
-        </li>
-        <!--<li class="nav-item">
-            <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-        </li>!-->
-        <ul class="nav navbar-nav navbar-right">
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">MyAcount</a>
-                <div class="dropdown-menu">
-                    <a class="dropdown-item" href="#">Action</a>
-                    <a class="dropdown-item" href="#">Login</a>
-                    <a class="dropdown-item" href="#">Settings</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">Separated link</a>
-                </div>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="/">My Blog</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+        </button>
+    
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+        <ul class="navbar-nav mr-auto">
+            <!--<li class="nav-item active">-->
+            <li class="{{Request::is('/') ? "active" :""}}">
+                <a class="nav-link" href="/">Home</a>
+            </li>
+            <li class="{{Request::is('about') ? "active" :""}}">
+                <a class="nav-link" href="/about">About</a>
+            </li>
+            <li class="{{Request::is('contact') ? "active" :""}}">
+                <a class="nav-link" href="/contact">Contact</a>
             </li>
         </ul>
-    </ul>
-    <!--nav bar-->
+
+        <ul class="navbar-nav navbar-right">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    My Account
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="#">Action</a>
+                    <a class="dropdown-item" href="#">Another action</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#">Something else here</a>
+            </div>
+            </li>
+        </ul>
+        
+
+        </div>
+    </nav>
 </div> <!-- end of header -->
