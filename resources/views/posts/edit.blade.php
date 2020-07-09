@@ -5,9 +5,13 @@
 @section('content')
 <div class="row">
     <div class="col-md-8">
-        {!!Form::model($post, ['route'=> ['posts.update', $post->id]]) !!}
+        {!! Form::model($post, ['route'=> ['posts.update', $post->id], 'method' => 'PUT']) !!}
         {{Form::label('title', 'Title:')}}
         {{Form::text('title', null, ["class"=> 'form-control'])}}
+        
+        {{Form::label('slug', 'Slug:', array('class' => 'form-spacing-top' ))}}
+        {{Form::text('slug', null, ["class"=> 'form-control'])}}
+
         {{Form::label('body', 'Body:',array('class' => 'form-spacing-top' ))}}
         {{Form::textarea('body', null, ["class"=> 'form-control'])}}
 
@@ -30,7 +34,8 @@
                     {{-- button加上route導向 --}}
                 </div>
                 <div class="col-sm-6">
-                    {!! Html::linkRoute('posts.update', 'Save', array($post->id),  array('class' => 'btn btn-success btn-block' )) !!}
+                    <!--要用form提交-->
+                    {!! Form::submit('Save', array($post->id), ['class' => 'btn btn-primary btn-block']) !!}
                 </div>
             </div>
         </div>

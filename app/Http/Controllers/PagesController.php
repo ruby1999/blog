@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Post;
 
 /*use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
@@ -32,6 +33,7 @@ class PagesController extends Controller
     }
     public function getHome(){
         //return ("hello");
-        return view('pages/welcome');
+        $posts = Post::orderBy('created_at', 'desc')->limit(4)->get();
+        return view('pages/welcome')->withPosts($posts);
     }
 }

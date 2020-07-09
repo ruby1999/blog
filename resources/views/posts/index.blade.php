@@ -17,6 +17,7 @@
                 <thead>
                     <th>#</th>
                     <th>Title</th>
+                    <th>slug</th>
                     <th>Body</th>
                     <th>Created At</th>
                 </thead>
@@ -26,17 +27,23 @@
                     <tr>
                         <td>{{ $post->id }}</td>
                         <td>{{ $post->title }}</td>
+                        <td>{{ $post->slug }}</td>
+                        <!-- 顯示內文前50個字，如果超過50個字，用...取代-->
                         <td>{{ substr($post->body,0 , 50)}}{{ strlen($post->body) > 100 ? "..." : ""}}</td>
                                                               <!--conditional ? if true : if flase -->
                         <td>{{ date('Y M j h:ia', strtotime($post->created_at)) }}</td>
-                        <td><a herf="{{route('posts.show', $post->id)}}" class="btn btn-primary btn-block btn-sm">View</a>
-                            <a herf="{{route('posts.edit', $post->id)}}" class="btn btn-primary btn-block btn-sm">Edit</a></td>
+                        <td>{!! Html::linkRoute('posts.show', 'View', array($post->id),  array('class' => 'btn btn-secondary btn-block' )) !!}
+                            {!! Html::linkRoute('posts.edit', 'Edit', array($post->id),  array('class' => 'btn btn-secondary btn-block' )) !!}</td>
                     </tr>
                     @endforeach
                 </tbody>
-            </table>    
-        </div>
+            </table>   
+                    <div class="gl-pagination prepend-top-default">
+                        {!! $posts->links() !!}
+                    </div>
+            </div>
     </div>
+    
 
 @endsection
 

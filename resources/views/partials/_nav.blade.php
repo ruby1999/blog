@@ -18,6 +18,9 @@
             <li class="{{Request::is('contact') ? "active" :""}}">
                 <a class="nav-link" href="/contact">Contact</a>
             </li>
+            <li class="{{Request::is('posts') ? "active" :""}}">
+                <a class="nav-link" href="/posts">Posts</a>
+            </li>
         </ul>
 
         <ul class="navbar-nav navbar-right">
