@@ -18,8 +18,9 @@
             <li class="{{Request::is('contact') ? "active" :""}}">
                 <a class="nav-link" href="/contact">Contact</a>
             </li>
-            <li class="{{Request::is('posts') ? "active" :""}}">
-                <a class="nav-link" href="/posts">Posts</a>
+            <li class="{{Request::is('blog') ? "active" :""}}">
+                <!--如果在目前這一頁，顯示active-->
+                <a class="nav-link" href="/blog">Blog</a>
             </li>
         </ul>
 
@@ -29,7 +30,8 @@
                     My Account
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="#">Action</a>
+                    <!--<a class="dropdown-item" href="/posts">Posts</a>-->
+                <a class="dropdown-item" href="{{route('posts.index')}}">Posts</a>
                     <a class="dropdown-item" href="#">Another action</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="#">Something else here</a>

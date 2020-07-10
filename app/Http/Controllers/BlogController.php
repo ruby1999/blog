@@ -5,8 +5,15 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Post;
 
+
 class BlogController extends Controller
 {
+    public function getIndex(){
+        //$posts= Post::all();
+        $posts= Post::paginate(2);
+        return view('blog.index')->withPosts($posts);        
+    }
+    
     public function getSingle($slug){
         
         //fetch from the DB based on slug
