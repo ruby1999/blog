@@ -8,6 +8,7 @@
     @include('partials/_messages')
 
     <div class="container">
+        {{ Auth::check() ? "Logged in" : "Logged out"}}
         @yield('content')
         <hr>
     </div> <!-- end of container -->

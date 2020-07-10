@@ -12,6 +12,11 @@ use Session; //引用會話(提示新建貼文成功)
 
 class PostController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     public function index()
     {
         //create a variable and store all the blog posts in it from the database
