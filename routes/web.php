@@ -18,6 +18,7 @@
     return "Your Laravel version is ".$laravel::VERSION;
 });*/
 
+//use Symfony\Component\Routing\Route;
 
 
 Route::group(['middleware' => 'web'], function () {
@@ -33,6 +34,11 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail');
     Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm');
 
+    //Category
+    Route::resource('categories', 'CategoryController', ['except'=>['create']]); //不要建立create的方法，或是把except改成，只建立哪幾種方法
+
+    //Tag
+    Route::resource('tags', 'TagController', ['except'=>['create']]); 
 
     //基本頁面
     Route::get('/home', 'HomeController@index')->name('home');    

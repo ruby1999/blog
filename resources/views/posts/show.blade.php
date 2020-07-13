@@ -7,14 +7,24 @@
     <div class="col-md-8">
         <h1>{{ $post->title}}</h1>
         <p class="lead">{{ $post->body}}</p>
+
+        <div class="tags">
+            @foreach ($post->tags as $tag)
+                <span class="badge badge-info">{{ $tag->name }}</span>
+            @endforeach
+        </div>
     </div>
+
 
     <div class="col-md-4">
         <div class="well">
             <dl class="dl-horizontal">
                 <dt>Url Slug:</dt>
                 <dd><a href="{{url('blog/'.$post->slug)}}"> {{url('blog/'.$post->slug)}}</a></dd>
-                <!--<dd><a href="{{route('blog.single', $post->slug )}}"> {{url('blog/'.$post->slug)}}</a></dd>-->
+            </dl>
+            <dl class="dl-horizontal">
+                <dt>Category:</dt>
+                <p>{{ $post->category->name }}</p>
             </dl>
             <dl class="dl-horizontal">
                 <dt>Create At:</dt>

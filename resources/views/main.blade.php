@@ -1,6 +1,8 @@
 <!doctype html>
 <html lang="zh-TW">
-@include('partials/_head')
+    <head>
+        @include('partials/_head')
+    </head>
 
 <body>
     @include('partials/_nav')
