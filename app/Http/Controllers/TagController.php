@@ -65,13 +65,11 @@ class TagController extends Controller
     public function destroy($id)
     {
         $tag = Tag::find($id);
-        //找到在貼文中的tag
-
         $tag->posts()->detach();
 
         $tag->delete();
 
-        Session::flash('success', 'Tag was deleted successfully');
+        Session::flash('success', 'Tag刪除成功');
 
         return redirect()->route('tags.index');
     }

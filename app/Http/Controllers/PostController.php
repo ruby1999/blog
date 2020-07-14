@@ -11,6 +11,7 @@ use App\Http\Requests;
 use App\Post;
 use App\Category; //引用Model
 use App\Tag;
+use App\Comment;
 use Session; //引用會話(提示新建貼文成功)
 
 class PostController extends Controller
@@ -87,7 +88,7 @@ class PostController extends Controller
     public function show($id)
     {
         $post = Post::find($id);
-        return view('posts.show')->withPost($post);
+        return view('posts.show')->withPost($post)->withComment($comment);
     }
 
     public function edit($id)
@@ -166,15 +167,13 @@ class PostController extends Controller
 
     public function destroy($id)
     {
-        //
+
         $post = Post::find($id);
-        $post->delete();
         $post->tags()->detach();
 
         $post->delete();
-        //刪除post中的tags
 
-        Session::flash('success', '貼文刪除成功');
+        Session::flash('success', 'The post was successfully deleted.');
         return redirect()->route('posts.index');
     }
 }

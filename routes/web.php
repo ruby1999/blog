@@ -47,7 +47,10 @@ Route::group(['middleware' => 'web'], function () {
     //as =>blog資料夾下面的index.blade []表示是array()
     //自定義網址，限定slug中只可以有\w(任何英文字符) \d(任何數字) \_(下底線) \-(dash)
     Route::get('about', 'PagesController@getAbout');
+
+    //contace me Sendding mail
     Route::get('contact', 'PagesController@getContact');
+    Route::post('contact', 'PagesController@postContact');
     Route::get('/', 'PagesController@getHome');
 
     //管理貼文(增刪改查)
