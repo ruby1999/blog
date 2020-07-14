@@ -43,7 +43,7 @@ class CommentsController extends Controller
 
         Session::flash('success', '留言新增成功！');
         //return redirect()->route('blog.single',[$post->id]);        
-        return view('blog.single')->withPost($post);
+        //return view('blog.single')->withPost($post);
 
     }
 
