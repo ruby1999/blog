@@ -15,11 +15,6 @@ class PagesController extends Controller
 {
     //use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
-    public function __construct()
-    {
-        // $this->middleware('guest');
-    }
-    
     public function getAbout(){
         //return ("hello");
         $first = 'Lin';

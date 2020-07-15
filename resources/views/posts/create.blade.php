@@ -3,8 +3,20 @@
 @section('title','Creat New Post')
 
 @section('stylesheet') 
+    {!! Html::style('css/select2.min.css') !!}  
     {!! Html::style('css/parsley.css') !!}      <!-- tag要引用的CSS -->
     {!! Html::style('css/select2.min.css') !!}  <!-- tag要引用的CSS -->
+
+    <!--引用tinymce v4-->
+    <script src='https://cloud.tinymce.com/stable/tinymce.min.js'></script>
+    <script>
+        tinymce.init({
+            selector: 'textarea',  // change this value according to your HTML
+            plugins: 'advlist link image lists code',
+            menubar: false
+        });
+    </script>
+    <!--end of 引用tinymce v4-->
 @endsection
 
 

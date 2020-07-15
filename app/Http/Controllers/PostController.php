@@ -150,6 +150,7 @@ class PostController extends Controller
         $post->save();
 
         //-----tags-----
+        //---同步處理
         if (isset($request->tags)) {
             $post->tags()->sync($request->tags);
         } else {

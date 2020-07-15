@@ -1,15 +1,9 @@
 <?php
 //use Illuminate\Routing\Route;
-
-/*Route::get('laravel-version', function(){
-    $laravel = app();
-    return "Your Laravel version is ".$laravel::VERSION;
-});*/
-
 //use Symfony\Component\Routing\Route;
 
 
-    Route::group(['middleware' => 'web'], function () {
+Route::group(['middleware' => 'web'], function () {
     
     //身分驗證(login、logout、register)
     Auth::routes(); //身分驗證全包
@@ -26,7 +20,16 @@
     
     //Tag
     Route::resource('tags', 'TagController', ['except'=>['create']]); 
-    
+
+    //Comment
+    //Route::resource('comments', 'CommentsController@store'); 
+    //Route::post('comments.store', ['as'=>'comments.store', 'uses'=> 'CommentsController@store'])->where('post_id');
+    Route::post('comments/{post_id}', ['uses' => 'CommentsController@store', 'as' => 'comments.store']);
+	Route::get('comments/{id}/edit', ['uses' => 'CommentsController@edit', 'as' => 'comments.edit']);
+	Route::put('comments/{id}', ['uses' => 'CommentsController@update', 'as' => 'comments.update']);
+	Route::delete('comments/{id}', ['uses' => 'CommentsController@destroy', 'as' => 'comments.destroy']);
+	Route::get('comments/{id}/delete', ['uses' => 'CommentsController@delete', 'as' => 'comments.delete']);
+
     //基本頁面
     Route::get('blog/{slug}', ['as'=>'blog.single', 'uses'=> 'BlogController@getSingle'])->where('slug', '[\w\d\-\_]+');
     Route::get('blog', ['uses'=>'BlogController@getIndex', 'as'=>'blog.index']);
@@ -41,9 +44,7 @@
     Route::resource('posts','PostController');
 });
     
-    //管理貼文(增刪改查)
-    
-    
+
     /*Authentication Routes
     Route::get('auth/login', 'Auth\AuthController@getLogin');
     Route::get('auth/login', 'Auth\AuthController@postLogin');
@@ -59,37 +60,37 @@
     Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
     Route::post('password/reset', 'Auth\ResetPasswordController@reset');
 //---------------------------------------------------------
-Route::group(['middleware' => ['web']], function () {
-	// Authentication Routes
-	Route::get('login', ['as' => 'login', 'uses' => 'Auth\LoginController@showLoginForm']);
-	Route::post('login', 'Auth\LoginController@login');
-	Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
+    Route::group(['middleware' => ['web']], function () {
+        // Authentication Routes
+        Route::get('login', ['as' => 'login', 'uses' => 'Auth\LoginController@showLoginForm']);
+        Route::post('login', 'Auth\LoginController@login');
+        Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
 
-	// Registration Routes
-	Route::get('auth/register', 'Auth\AuthController@getRegister');
-	Route::post('auth/register', 'Auth\AuthController@postRegister');
+        // Registration Routes
+        Route::get('auth/register', 'Auth\AuthController@getRegister');
+        Route::post('auth/register', 'Auth\AuthController@postRegister');
 
-	// Password Reset Routes
-	Route::get('password/reset/{token?}', 'Auth\PasswordController@showResetForm');
-	Route::post('password/email', 'Auth\PasswordController@sendResetLinkEmail');
-	Route::post('password/reset', 'Auth\PasswordController@reset');
+        // Password Reset Routes
+        Route::get('password/reset/{token?}', 'Auth\PasswordController@showResetForm');
+        Route::post('password/email', 'Auth\PasswordController@sendResetLinkEmail');
+        Route::post('password/reset', 'Auth\PasswordController@reset');
 
-	// Categories
-	Route::resource('categories', 'CategoryController', ['except' => ['create']]);
-	Route::resource('tags', 'TagController', ['except' => ['create']]);
-	
-	// Comments
-	Route::post('comments/{post_id}', ['uses' => 'CommentsController@store', 'as' => 'comments.store']);
-	Route::get('comments/{id}/edit', ['uses' => 'CommentsController@edit', 'as' => 'comments.edit']);
-	Route::put('comments/{id}', ['uses' => 'CommentsController@update', 'as' => 'comments.update']);
-	Route::delete('comments/{id}', ['uses' => 'CommentsController@destroy', 'as' => 'comments.destroy']);
-	Route::get('comments/{id}/delete', ['uses' => 'CommentsController@delete', 'as' => 'comments.delete']);
+        // Categories
+        Route::resource('categories', 'CategoryController', ['except' => ['create']]);
+        Route::resource('tags', 'TagController', ['except' => ['create']]);
+        
+        // Comments
+        Route::post('comments/{post_id}', ['uses' => 'CommentsController@store', 'as' => 'comments.store']);
+        Route::get('comments/{id}/edit', ['uses' => 'CommentsController@edit', 'as' => 'comments.edit']);
+        Route::put('comments/{id}', ['uses' => 'CommentsController@update', 'as' => 'comments.update']);
+        Route::delete('comments/{id}', ['uses' => 'CommentsController@destroy', 'as' => 'comments.destroy']);
+        Route::get('comments/{id}/delete', ['uses' => 'CommentsController@delete', 'as' => 'comments.delete']);
 
-	Route::get('blog/{slug}', ['as' => 'blog.single', 'uses' => 'BlogController@getSingle'])->where('slug', '[\w\d\-\_]+');
-	Route::get('blog', ['uses' => 'BlogController@getIndex', 'as' => 'blog.index']);
-    Route::get('contact', 'PagesController@getContact');
-    Route::post('contact', 'PagesController@postContact');
-	Route::get('about', 'PagesController@getAbout');
-	Route::get('/', 'PagesController@getHome');
-	Route::resource('posts', 'PostController');
-});*/
+        Route::get('blog/{slug}', ['as' => 'blog.single', 'uses' => 'BlogController@getSingle'])->where('slug', '[\w\d\-\_]+');
+        Route::get('blog', ['uses' => 'BlogController@getIndex', 'as' => 'blog.index']);
+        Route::get('contact', 'PagesController@getContact');
+        Route::post('contact', 'PagesController@postContact');
+        Route::get('about', 'PagesController@getAbout');
+        Route::get('/', 'PagesController@getHome');
+        Route::resource('posts', 'PostController');
+    });*/
