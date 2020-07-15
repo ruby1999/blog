@@ -13,6 +13,8 @@ use App\Category; //引用Model
 use App\Tag;
 use App\Comment;
 use Session; //引用會話(提示新建貼文成功)
+use Image; //要存入照片
+use Storage;
 
 class PostController extends Controller
 {
@@ -72,6 +74,21 @@ class PostController extends Controller
         $post->slug = $request ->slug;
         $post->category_id = $request->category_id;
         $post->body = $request->body;
+        //$post->body = Purifier::clean($request->body);
+        //如果有用驗證html標籤的話
+        
+        //加入圖片(如果有要存入圖片的話)
+        //$filename設定檔案名稱
+        //要儲存的位置，在最外面的那個public資料夾/images資料夾
+        //featured_img是controller裡面form設定的名稱
+        if ($request->hasFile('featured_img')) {
+            $image = $request->file('featured_img');
+            $filename = time() . '.' . $image->getClientOriginalExtension();
+            $location = public_path('images/' . $filename);
+            Image::make($image)->resize(800, 400)->save($location);
+  
+            $post->image = $filename;
+          }
 
         $post->save();
 
@@ -124,15 +141,18 @@ class PostController extends Controller
             $this->validate($request, array(
                 'title'         => 'required|max:255',
                 'category_id'   => 'required|integer',
-                'body'          => 'required'
+                'body'          => 'required',
+                'featured_img'  => 'image'
+                //驗證是否為照片
             ));
         }else{
             $this->validate($request, array(
                 'title'         => 'required|max:255',
                 //驗證slug在posts資料表中是獨一無二的
-                'slug'          =>'required|alpha_dash|min:5|max:255|unique:posts,slug',
+                'slug'          =>'required|alpha_dash|min:5|max:255|unique:posts,slug, $id',
                 'category_id'   => 'required|integer',
-                'body'          => 'required'
+                'body'          => 'required',
+                'featured_img'  => 'image'
             ));
 
         }
@@ -146,6 +166,23 @@ class PostController extends Controller
         $post->slug = $request->input('slug');
         $post->category_id = $request->input('category_id');
         $post->body = $request->input('body');
+
+        if ($request->hasFile('featured_img')) {
+
+            //add the new photo
+            $image = $request->file('featured_img');
+            $filename = time() . '.' . $image->getClientOriginalExtension();
+            $location = public_path('images/' . $filename);
+            Image::make($image)->resize(800, 400)->save($location);
+            $oldFileName = $post->image;
+
+            //update the database
+            $post->image = $filename;
+
+            //delete the old photo
+            Storage::delete($oldFileName);
+
+          }
 
         $post->save();
 
@@ -171,6 +208,7 @@ class PostController extends Controller
 
         $post = Post::find($id);
         $post->tags()->detach();
+        Storage::delete($post->image);
 
         $post->delete();
 

@@ -17,6 +17,9 @@
         <!-- comments.edit -->
         <div id="backend-comments" style="margin-top: 50px;">
             <h3>Comments <small>{{ $post->comments()->count() }} total</small></h3>
+            @if(!empty($post->image))
+				<img src="{{asset('images/' . $post->image)}}" width="650" height="200" />
+			@endif
 
             <table class="table">
                 <thead>

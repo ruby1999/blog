@@ -24,7 +24,9 @@
     <div class="col-md-8 col-md-offset-2">
         <h1>Create New Post</h1>
         <hr>
-        {!! Form::open(['route' => 'posts.store']) !!}
+        {!! Form::open(['route' => 'posts.store', 'data-parsley-validate' => '', 'files' => true]) !!}
+        
+        <!-- 'files' => true 可以傳輸資料 如果是用html參數的話要加入enctype="multipart/form-data"-->
 
             {{Form::label('title','Title:')}}
             {{Form::text('title', null, array('class' => 'form-control', 'required'=>'', 'maxlength'=>'255'))}}
@@ -46,6 +48,9 @@
                     <option value='{{ $tag->id }}'>{{ $tag->name }}</option>
                 @endforeach
             </select>
+
+            {{ Form::label('featured_img', 'Upload a Featured Image') }}
+            {{ Form::file('featured_img') }}
             
             {{Form::label('body','Body:')}}
             {{Form::textarea('body', null, array('class' => 'form-control'))}}

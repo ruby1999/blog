@@ -13,7 +13,7 @@
             <div class="post">
                 <h3>{{$post->title}}</h3>
                 <h6>Published :{{date('Y M j h:ia', strtotime($post->created_at))}}</h5>
-                <p> {{ substr($post->body,0 , 300)}}{{ strlen($post->body) > 100 ? "..." : ""}}</p>
+                <p> {{ substr(strip_tags($post->body),0 , 300)}}{{ strlen(strip_tags($post->body)) > 100 ? "..." : ""}}</p>
                 <a href="{{route('blog.single', $post->slug )}}" class="btn btn-primary">Read More</a>
                 <hr>
             </div>
